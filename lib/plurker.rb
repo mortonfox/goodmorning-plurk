@@ -25,11 +25,15 @@ class Plurker
 
     res = client.get('/APP/Timeline/getPlurks?filter=my&limit=1')
     json = JSON.parse(res.body)
-    last_plurk_time = Time.parse(json['plurks'].first['posted'])
+    last_plurk_time_str = json['plurks'].first&.dig('posted')
 
-    if now - last_plurk_time <= since
-      puts 'Already plurked within this period.'
-      return
+    # Could be nil if user has never posted before.
+    if last_plurk_time_str
+      last_plurk_time = Time.parse(last_plurk_time_str)
+      if now - last_plurk_time <= since
+        puts 'Already plurked within this period.'
+        return
+      end
     end
 
     msg = period['msg']
