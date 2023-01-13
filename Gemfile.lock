@@ -3,13 +3,21 @@ GEM
   specs:
     addressable (2.8.1)
       public_suffix (>= 2.0.2, < 6.0)
-    json (2.6.2)
-    launchy (2.5.0)
-      addressable (~> 2.7)
-    oauth (1.0.0)
+    hashie (5.0.0)
+    json (2.6.3)
+    launchy (2.5.2)
+      addressable (~> 2.8)
+    oauth (1.1.0)
+      oauth-tty (~> 1.0, >= 1.0.1)
+      snaky_hash (~> 2.0)
       version_gem (~> 1.1)
-    public_suffix (5.0.0)
-    version_gem (1.1.0)
+    oauth-tty (1.0.5)
+      version_gem (~> 1.1, >= 1.1.1)
+    public_suffix (5.0.1)
+    snaky_hash (2.0.1)
+      hashie
+      version_gem (~> 1.1, >= 1.1.1)
+    version_gem (1.1.1)
 
 PLATFORMS
   ruby
