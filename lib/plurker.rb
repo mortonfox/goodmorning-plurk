@@ -6,13 +6,13 @@ require 'yaml'
 
 # Class that actually does the plurking.
 class Plurker
-  def initialize conf_file:
+  def initialize(conf_file:)
     @conf_file = File.expand_path(conf_file)
 
     load_config
   end
 
-  def do_plurk client
+  def do_plurk(client)
     now = Time.now
 
     period = period_of(now)
@@ -54,7 +54,7 @@ class Plurker
     @periods = config['periods']
   end
 
-  def period_of time
+  def period_of(time)
     hour = time.hour
     @periods.each { |period|
       hstart = period['start']
@@ -70,7 +70,7 @@ class Plurker
     nil
   end
 
-  def since_period_start period, time
+  def since_period_start(period, time)
     date = time.to_date
     hstart = period['start']
     period_start = Time.new(date.year, date.month, date.day, hstart)

@@ -7,7 +7,7 @@ require 'yaml'
 
 # Wrapper for Plurk API
 class PlurkAPI
-  def initialize token_file:, conf_file:, force_login: false
+  def initialize(token_file:, conf_file:, force_login: false)
     @token_file = File.expand_path(token_file)
     @conf_file = File.expand_path(conf_file)
 
@@ -78,9 +78,7 @@ class PlurkAPI
 
     @token = request_token.get_access_token(oauth_verifier: verifier)
 
-    File.open(@token_file, 'w') { |io|
-      io.write({ token: @token.token, secret: @token.secret }.to_json)
-    }
+    File.write(@token_file, { token: @token.token, secret: @token.secret }.to_json)
   end
 end
 
