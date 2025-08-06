@@ -31,12 +31,12 @@ class PlurkAPI
     login if @token.nil?
   end
 
-  def get *args
-    @token.get(*args)
+  def get(*)
+    @token.get(*)
   end
 
-  def post *args
-    @token.post(*args)
+  def post(*)
+    @token.post(*)
   end
 
   private
