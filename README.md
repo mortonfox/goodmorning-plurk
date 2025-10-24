@@ -20,7 +20,7 @@ Usage: run.rb [options]"
     -h, -?, --help                   Show this help.
     -l, --login                      Ignore saved token and force a new login
         --token-file=FILENAME        Set name of token file. Default: ~/.gmplurk.token
-        --config-file=FILENAME       Set name of config file. Default: ~/.gmplurk.yml
+        --config-file=FILENAME       Set name of config file. Default: ~/.gmplurk.conf
 
 ```
 
@@ -28,31 +28,38 @@ Run the script without any options, i.e. ``bundle exec ruby run.rb``, and it wil
 
 ## Config file
 
-The gmplurk config file is a YAML file. By default, gmplurk will read ``.gmplurk.yml`` in your home directory for its configuration.
+The gmplurk configuration file is in [HOCON](https://github.com/lightbend/config/blob/master/HOCON.md) format. By default, gmplurk will read ``.gmplurk.conf`` in your home directory for its configuration.
 
 An example config file follows:
 
-```yaml
-plurk_api:
-    consumer_key: KEY
-    consumer_secret: SECRET
-periods:
-    -
-        start: 21
-        end: 3
-        msg: Goodnight
-    -
-        start: 3
-        end: 12
-        msg: Good morning
-    -
-        start: 12
-        end: 17
-        msg: Good afternoon
-    -
-        start: 17
-        end: 21
-        msg: Good evening
+```hocon
+plurk_api {
+    consumer_key = "KEY"
+    consumer_secret = "SECRET"
+}
+
+periods = [
+    {
+        start = 21
+        end = 3
+        msg = "Goodnight"
+    }
+    {
+        start = 3
+        end = 12
+        msg = "Good morning"
+    }
+    {
+        start = 12
+        end = 17
+        msg = "Good afternoon"
+    }
+    {
+        start = 17
+        end = 21
+        msg = "Good evening"
+    }
+]
 ```
 
 KEY and SECRET need to be filled in with the app key and app secret from the app that you set up in [My Plurk Apps](https://www.plurk.com/PlurkApp/).
