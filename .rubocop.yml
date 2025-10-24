@@ -13,3 +13,5 @@ Style/BlockDelimiters:
   Enabled: false
 Style/HashSyntax:
   EnforcedShorthandSyntax: either
+Style/SuperArguments:
+  Enabled: false
