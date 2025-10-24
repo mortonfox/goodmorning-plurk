@@ -3,15 +3,14 @@
 require 'launchy'
 require 'json'
 require 'oauth'
-require 'yaml'
 
 # Wrapper for Plurk API
 class PlurkAPI
-  def initialize(token_file:, config_file:, force_login: false)
+  def initialize(token_file:, plurk_api:, force_login: false)
     @token_file = File.expand_path(token_file)
-    @config_file = File.expand_path(config_file)
 
-    load_config
+    @consumer_key = plurk_api.consumer_key
+    @consumer_secret = plurk_api.consumer_secret
 
     @consumer = OAuth::Consumer.new(
       @consumer_key, @consumer_secret,
@@ -52,20 +51,6 @@ class PlurkAPI
     }
   rescue StandardError
     nil
-  end
-
-  def load_config
-    config = YAML.load_file(@config_file)
-
-    raise "plurk_api section is missing from configuration file #{@config_file}" unless config.key?('plurk_api')
-
-    plurk_api = config['plurk_api']
-
-    %w[consumer_key consumer_secret].each { |key|
-      raise "#{key} is missing from configuration file #{@config_file}" unless plurk_api.key?(key)
-
-      instance_variable_set("@#{key}", plurk_api[key])
-    }
   end
 
   def login

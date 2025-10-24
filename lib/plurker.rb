@@ -2,14 +2,11 @@
 
 require 'json'
 require 'time'
-require 'yaml'
 
 # Class that actually does the plurking.
 class Plurker
-  def initialize(config_file:)
-    @config_file = File.expand_path(config_file)
-
-    load_config
+  def initialize(periods:)
+    @periods = periods
   end
 
   def do_plurk(client)
@@ -36,7 +33,7 @@ class Plurker
       end
     end
 
-    msg = period['msg']
+    msg = period.msg
 
     puts "Plurking #{msg} ..."
 
@@ -46,19 +43,11 @@ class Plurker
 
   private
 
-  def load_config
-    config = YAML.load_file(@config_file)
-
-    raise "periods section is missing from configuration file #{@config_file}" unless config.key?('periods')
-
-    @periods = config['periods']
-  end
-
   def period_of(time)
     hour = time.hour
     @periods.each { |period|
-      hstart = period['start']
-      hend = period['end']
+      hstart = period.start
+      hend = period.end
       within_period = if hstart > hend
                         # This is for the period that spans midnight.
                         hour >= hstart || hour < hend
@@ -72,7 +61,7 @@ class Plurker
 
   def since_period_start(period, time)
     date = time.to_date
-    hstart = period['start']
+    hstart = period.start
     period_start = Time.new(date.year, date.month, date.day, hstart)
     if period_start > time
       date -= 1

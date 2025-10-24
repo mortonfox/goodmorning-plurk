@@ -5,7 +5,7 @@ require 'optparse'
 # Parse cmdline arguments
 class Cmdline
   DEFAULT_TOKEN_FILE = '~/.gmplurk.token'
-  DEFAULT_CONFIG_FILE = '~/.gmplurk.yml'
+  DEFAULT_CONFIG_FILE = '~/.gmplurk.conf'
 
   DEFAULT_OPTIONS = {
     token_file: DEFAULT_TOKEN_FILE,

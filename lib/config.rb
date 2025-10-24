@@ -25,6 +25,8 @@ class Config
   end
 
   def load_config(fname)
+    fname = File.expand_path(fname)
+
     raise "Config file #{fname} not found or not readable" unless File.readable?(fname)
 
     config = Hocon.load(fname)
