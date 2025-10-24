@@ -7,9 +7,9 @@ require 'yaml'
 
 # Wrapper for Plurk API
 class PlurkAPI
-  def initialize(token_file:, conf_file:, force_login: false)
+  def initialize(token_file:, config_file:, force_login: false)
     @token_file = File.expand_path(token_file)
-    @conf_file = File.expand_path(conf_file)
+    @config_file = File.expand_path(config_file)
 
     load_config
 
@@ -55,14 +55,14 @@ class PlurkAPI
   end
 
   def load_config
-    config = YAML.load_file(@conf_file)
+    config = YAML.load_file(@config_file)
 
-    raise "plurk_api section is missing from configuration file #{@conf_file}" unless config.key?('plurk_api')
+    raise "plurk_api section is missing from configuration file #{@config_file}" unless config.key?('plurk_api')
 
     plurk_api = config['plurk_api']
 
     %w[consumer_key consumer_secret].each { |key|
-      raise "#{key} is missing from configuration file #{@conf_file}" unless plurk_api.key?(key)
+      raise "#{key} is missing from configuration file #{@config_file}" unless plurk_api.key?(key)
 
       instance_variable_set("@#{key}", plurk_api[key])
     }

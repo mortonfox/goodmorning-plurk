@@ -6,8 +6,8 @@ require 'yaml'
 
 # Class that actually does the plurking.
 class Plurker
-  def initialize(conf_file:)
-    @conf_file = File.expand_path(conf_file)
+  def initialize(config_file:)
+    @config_file = File.expand_path(config_file)
 
     load_config
   end
@@ -47,9 +47,9 @@ class Plurker
   private
 
   def load_config
-    config = YAML.load_file(@conf_file)
+    config = YAML.load_file(@config_file)
 
-    raise "periods section is missing from configuration file #{@conf_file}" unless config.key?('periods')
+    raise "periods section is missing from configuration file #{@config_file}" unless config.key?('periods')
 
     @periods = config['periods']
   end
