@@ -45,7 +45,12 @@ class Cmdline
       options.config_file = fname
     }
 
-    opts.parse!
+    begin
+      opts.parse!
+    rescue StandardError => e
+      warn "Error from option parser: #{e}\n\n#{opts}"
+      exit 1
+    end
 
     options
   end
