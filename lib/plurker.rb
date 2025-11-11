@@ -3,8 +3,14 @@
 require 'json'
 require 'time'
 
+# For Plurk API errors
+class PlurkApiError < StandardError
+end
+
 # Class that actually does the plurking.
 class Plurker
+  ERROR_KEY = 'error_text'
+
   def initialize(periods:)
     @periods = periods
   end
@@ -22,6 +28,8 @@ class Plurker
 
     res = client.get('/APP/Timeline/getPlurks?filter=my&limit=1')
     json = JSON.parse(res.body)
+    check_error(json)
+
     last_plurk_time_str = json['plurks'].first&.dig('posted')
 
     # Could be nil if user has never posted before.
@@ -38,10 +46,19 @@ class Plurker
     puts "Plurking #{msg} ..."
 
     res = client.post('/APP/Timeline/plurkAdd', content: msg, qualifier: '')
+
+    json = JSON.parse(res.body)
+    check_error(json)
+
     puts res.body
   end
 
   private
+
+  # Plurk API calls don't seem to generate proper HTTP error codes when they fail. Instead there is an error_text field in the JSON result. So we check for that instead.
+  def check_error(json_resp)
+    raise PlurkApiError, json_resp[ERROR_KEY] if json_resp.key?(ERROR_KEY)
+  end
 
   def period_of(time)
     hour = time.hour
