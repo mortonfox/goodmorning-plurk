@@ -24,7 +24,7 @@ class Plurker
       return
     end
 
-    since = since_period_start(period, now)
+    start = period_start(period, now)
 
     res = client.get('/APP/Timeline/getPlurks?filter=my&limit=1')
     json = JSON.parse(res.body)
@@ -35,7 +35,7 @@ class Plurker
     # Could be nil if user has never posted before.
     if last_plurk_time_str
       last_plurk_time = Time.parse(last_plurk_time_str)
-      if now - last_plurk_time <= since
+      if last_plurk_time >= start
         puts 'Already plurked within this period.'
         return
       end
@@ -76,7 +76,7 @@ class Plurker
     nil
   end
 
-  def since_period_start(period, time)
+  def period_start(period, time)
     date = time.to_date
     hstart = period.start
     period_start = Time.new(date.year, date.month, date.day, hstart)
@@ -84,7 +84,7 @@ class Plurker
       date -= 1
       period_start = Time.new(date.year, date.month, date.day, hstart)
     end
-    time - period_start
+    period_start
   end
 end
 
