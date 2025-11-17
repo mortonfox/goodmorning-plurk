@@ -23,7 +23,7 @@ class Cmdline
     opts.banner = <<~BANNER
       Post good morning, good afternoon, etc, to Plurk depending on time of day.
 
-      Usage: #{File.basename($PROGRAM_NAME)} [options]"
+      Usage: #{File.basename($PROGRAM_NAME)} [options]
     BANNER
 
     opts.separator('')
