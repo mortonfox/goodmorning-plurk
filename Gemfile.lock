@@ -4,12 +4,13 @@ GEM
     addressable (2.9.0)
       public_suffix (>= 2.0.2, < 8.0)
     base64 (0.3.0)
+    cgi (0.5.1)
     childprocess (5.1.0)
       logger (~> 1.5)
     hashie (5.1.0)
       logger
     hocon (1.4.0)
-    json (2.19.3)
+    json (2.19.5)
     launchy (3.1.1)
       addressable (~> 2.8)
       childprocess (~> 5.0)
@@ -33,6 +34,7 @@ PLATFORMS
 
 DEPENDENCIES
   base64
+  cgi
   hocon
   json
   launchy
@@ -42,4 +44,4 @@ RUBY VERSION
   ruby 3.4.2p28
 
 BUNDLED WITH
-  4.0.10
+  4.0.11
