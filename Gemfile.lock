@@ -3,7 +3,7 @@ GEM
   specs:
     addressable (2.9.0)
       public_suffix (>= 2.0.2, < 8.0)
-    auth-sanitizer (0.1.4)
+    auth-sanitizer (0.2.0)
       version_gem (~> 1.1, >= 1.1.9)
     base64 (0.3.0)
     cgi (0.5.1)
@@ -12,7 +12,7 @@ GEM
     hashie (5.1.0)
       logger
     hocon (1.4.0)
-    json (2.19.5)
+    json (2.19.8)
     launchy (3.1.1)
       addressable (~> 2.8)
       childprocess (~> 5.0)
@@ -33,7 +33,7 @@ GEM
     snaky_hash (2.0.4)
       hashie (>= 0.1.0, < 6)
       version_gem (>= 1.1.8, < 3)
-    version_gem (1.1.9)
+    version_gem (1.1.10)
 
 PLATFORMS
   ruby
